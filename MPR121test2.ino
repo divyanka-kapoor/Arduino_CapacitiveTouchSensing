@@ -1,19 +1,3 @@
-/*********************************************************
-  This is a library for the MPR121 12-channel Capacitive touch sensor
-
-  Designed specifically to work with the MPR121 Breakout in the Adafruit shop
-  ----> https://www.adafruit.com/products/
-
-  These sensors use I2C communicate, at least 2 pins are required
-  to interface
-
-  Adafruit invests time and resources providing this open source code,
-  please support Adafruit and open-source hardware by purchasing
-  products from Adafruit!
-
-  Written by Limor Fried/Ladyada for Adafruit Industries.
-  BSD license, all text above must be included in any redistribution
-**********************************************************/
 
 #include <Wire.h>
 #include "Adafruit_MPR121.h"
@@ -73,21 +57,11 @@ void loop() {
   currtouched = cap.touched();
 
   for (uint8_t i = 0; i < 12; i++) {
-    // it if *is* touched and *wasnt* touched before, alert!
-    //    if ((currtouched & _BV(i)) && !(lasttouched & _BV(i)) ) {
-    //      Serial.print(i); Serial.println(" touched");
-    //    }
-    //    // if it *was* touched and now *isnt*, alert!
-    //    if (!(currtouched & _BV(i)) && (lasttouched & _BV(i)) ) {
-    //      Serial.print(i); Serial.println(" released");
-    //    }
+
     switch (i) {
       case 0:
         if ((currtouched & _BV(i)) && !(lasttouched & _BV(i)))
         {
-          //        if ((cap.baselineData(i)-cap.filteredData(i))<=200)
-          //        {
-          //          Serial.print(i); Serial.println(" touched");
           Serial.println("Volume is 0.5 ml");
           //        }
           colorWipe(strip.Color(255,   0,   0)     , 50, i); // Red
@@ -99,7 +73,6 @@ void loop() {
       case 1:
         if ((currtouched & _BV(i)) && !(lasttouched & _BV(i)))
         {
-          //        Serial.print(i); Serial.println(" touched");
           Serial.println("Volume is 1.5 ml");       
           colorWipe(strip.Color(255,   0,   0)     , 50, i); // Red
           colorWipe(strip.Color(  0, 255,   0)     , 50, i); // Green
@@ -110,7 +83,6 @@ void loop() {
       case 2 :
         if ((currtouched & _BV(i)) && !(lasttouched & _BV(i)))
         {
-          //        Serial.print(i); Serial.println(" touched");
           Serial.println("Volume is 2 ml");
           colorWipe(strip.Color(255,   0,   0)     , 50, i); // Red
           colorWipe(strip.Color(  0, 255,   0)     , 50, i); // Green
@@ -121,7 +93,6 @@ void loop() {
       case 3 :
         if ((currtouched & _BV(i)) && !(lasttouched & _BV(i)))
         {
-          //        Serial.print(i); Serial.println(" touched");
           Serial.println("Volume is 4 ml");
           colorWipe(strip.Color(255,   0,   0)     , 50, i); // Red
           colorWipe(strip.Color(  0, 255,   0)     , 50, i); // Green
@@ -132,7 +103,6 @@ void loop() {
       case 4 :
         if ((currtouched & _BV(i)) && !(lasttouched & _BV(i)))
         {
-          //        Serial.print(i); Serial.println(" touched");
           Serial.println("Volume is 6 ml");
           colorWipe(strip.Color(255,   0,   0)     , 50, i); // Red
           colorWipe(strip.Color(  0, 255,   0)     , 50, i); // Green
@@ -143,7 +113,6 @@ void loop() {
       case 5 :
         if ((currtouched & _BV(i)) && !(lasttouched & _BV(i)))
         {
-          //        Serial.print(i); Serial.println(" touched");
           Serial.println("Volume is 10 ml");
           colorWipe(strip.Color(255,   0,   0)     , 50, i); // Red
           colorWipe(strip.Color(  0, 255,   0)     , 50, i); // Green
@@ -154,7 +123,6 @@ void loop() {
       case 6 :
         if ((currtouched & _BV(i)) && !(lasttouched & _BV(i)))
         {
-          //        Serial.print(i); Serial.println(" touched");
           Serial.println("Volume is 16 ml");
           colorWipe(strip.Color(255,   0,   0)     , 50, i); // Red
           colorWipe(strip.Color(  0, 255,   0)     , 50, i); // Green
@@ -171,15 +139,11 @@ void loop() {
   // reset our state
   lasttouched = currtouched;
 
-  // comment out this line for detailed data from the sensor!
   return;
   // debugging info, what
   Serial.print("\t\t\t\t\t\t\t\t\t\t\t\t\t 0x"); Serial.println(cap.touched(), HEX);
   Serial.print("Filt: ");
-  //  Serial.print(cap.filteredData(4)); Serial.print("\t");
-  //  if(cap.filteredData(4) == 200){
-  //     Serial.print("water level 1\t");
-  //  }
+ 
   for (uint8_t i = 0; i < 12; i++) {
     Serial.print(cap.filteredData(i)); Serial.print("\t");
   }
@@ -189,9 +153,7 @@ void loop() {
   for (uint8_t i = 0; i < 12; i++) {
     Serial.print(cap.baselineData(i)); Serial.print("\t");
   }
-  //  if(cap.filteredData(4) == 200){
-  //       Serial.print("water level 1\t");
-  //    }
+  
   Serial.println();
 
   // put a delay so it isn't overwhelming
